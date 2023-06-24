@@ -13,9 +13,13 @@
 #define RED_LED_PIN D2
 #define LCD_SCL_PIN D3
 #define LCD_SDA_PIN D4
-#define SONAR_TRIGGER_PIN D6
 #define SONAR_ECHO_PIN D5
+#define SONAR_TRIGGER_PIN D6
 #define SONAR_MAX_DISTANCE 300 // Max Distance in cm
+#define BUZZER_PIN D7
+#define BUZZER_FREQUENCY 500 // Frequency in Hz
+#define BUZZER_TIME_ON 1000 // Time in ms
+#define BUZZER_TIME_OFF 500 // Delay in ms
 
 // LCD Initialization
 LiquidCrystal_I2C lcd(0x27, 16, 2);
@@ -46,7 +50,7 @@ float getWaterLevel() {
 
 // Network Credentials
 const char* SSID     = "Kontrakan Deka";
-const char* PASSWORD = "rahasia";
+const char* PASSWORD = "ayamterbang2830";
 
 // Initiate Asynchronous Webserver on port 80
 AsyncWebServer server(80);
@@ -437,6 +441,12 @@ void loop() {
       RED_LED_PIN,
       currentWaterLevel >= level3Breakpoint ? HIGH : LOW
     );
+    if(currentWaterLevel >= level3Breakpoint) {
+      tone(BUZZER_PIN, BUZZER_FREQUENCY);
+      delay(BUZZER_TIME_ON);
+      noTone(BUZZER_PIN);
+      delay(BUZZER_TIME_OFF);
+    }
   } else {
     lcd.print("------");
     // turn off led once sonar stop monitoring
