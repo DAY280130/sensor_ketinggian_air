@@ -457,7 +457,6 @@ void loop() {
   lcd.setCursor(6, 1);
   lcd.print(" of ");
   lcd.setCursor(10, 1);
-  // lcd.print("      ");
   if (sonarInit) {
     delay(50);
     mediumDepth = sonar.ping_cm();
