@@ -50,7 +50,7 @@ float getWaterLevel() {
 
 // Network Credentials
 const char* SSID     = "Kontrakan Deka";
-const char* PASSWORD = "ayamterbang2830";
+const char* PASSWORD = "rahasia";
 
 // Initiate Asynchronous Webserver on port 80
 AsyncWebServer server(80);
