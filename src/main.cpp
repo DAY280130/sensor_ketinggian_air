@@ -311,7 +311,7 @@ void setup() {
 
       case 2:
         if(value <= level1Breakpoint || value >= level3Breakpoint) {
-          resBody["message"] = "value of level 1 breakpoint must be between level 1 and 3";
+          resBody["message"] = "value of level 2 breakpoint must be between level 1 and 3";
         } else {
           level2Breakpoint = value;
           resBody["message"] = "success changing level 2 value";
@@ -321,7 +321,7 @@ void setup() {
 
       case 3:
         if(value <= level2Breakpoint) {
-          resBody["message"] = "value of level 1 breakpoint must be higher than level 2";
+          resBody["message"] = "value of level 3 breakpoint must be higher than level 2";
         } else {
           level3Breakpoint = value;
           resBody["message"] = "success changing level 3 value";
@@ -396,8 +396,6 @@ void setup() {
       else if(getWaterLevel() >= level1Breakpoint) resBody["waterStatus"] = "safe";
       else resBody["waterStatus"] = "low";
       resBody["waterLevel"] = getWaterLevel();
-      resBody["depth"] = mediumDepth;
-      resBody["distance"] = distance;
     }
 
     resBody.printTo(*response);
