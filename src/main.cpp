@@ -49,8 +49,8 @@ float getWaterLevel() {
 }
 
 // Network Credentials
-const char* SSID     = "Kontrakan Deka";
-const char* PASSWORD = "rahasia";
+const char* SSID     = "bukan wifi";
+const char* PASSWORD = "2ytedm6t";
 
 // Initiate Asynchronous Webserver on port 80
 AsyncWebServer server(80);
@@ -151,8 +151,6 @@ void setup() {
   Serial.println(WiFi.localIP());
   lcd.clear();
   lcd.setCursor(0, 0);
-  lcd.print("IP:");
-  lcd.setCursor(3, 0);
   lcd.print(WiFi.localIP());
 
   // Base route
@@ -220,6 +218,10 @@ void setup() {
 
   // Level Control Routes
   server.addRewrite(new OneParamRewrite("/level/{specified_level}", "/level?l={specified_level}"));
+
+  server.on("/level", HTTP_OPTIONS, [](AsyncWebServerRequest *request) {
+    request->send(200);
+  });
   
   server.on("/level", HTTP_GET, [](AsyncWebServerRequest *request) {
     AsyncResponseStream *response = request->beginResponseStream("application/json");
@@ -414,6 +416,9 @@ void setup() {
     request->send(response);
   });
 
+  DefaultHeaders::Instance().addHeader("Access-Control-Allow-Origin", "*");
+  DefaultHeaders::Instance().addHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+  DefaultHeaders::Instance().addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   server.begin();
   Serial.println("Webserver Running...");
 }
